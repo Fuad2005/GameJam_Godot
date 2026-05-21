@@ -228,6 +228,7 @@ z_index = 10
 script = ExtResource("1_l4c46")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 texture_filter = 1
 position = Vector2(-7.62939e-06, 0)
 scale = Vector2(2.6875, 2.6875)
@@ -236,5 +237,6 @@ animation = &"Idle_Up"
 autoplay = "Idle_Down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
 position = Vector2(1.5, 25.5)
 shape = SubResource("RectangleShape2D_lw7x1")

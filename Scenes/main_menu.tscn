@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dh44rilcqwdru"]
+[gd_scene load_steps=6 format=3 uid="uid://cynoe80ow0neo"]
 
-[ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_gdcqn"]
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_plfjj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pbyk"]
 bg_color = Color(0, 1, 0, 1)
@@ -25,7 +25,7 @@ offset_right = 76.0
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_gdcqn")
+script = ExtResource("1_plfjj")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
