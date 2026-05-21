@@ -1,0 +1,113 @@
+[gd_scene load_steps=13 format=3 uid="uid://bjkxp2iosjpbv"]
+
+[ext_resource type="Texture2D" uid="uid://c4p0jdni76wvy" path="res://Assets/7demons/legionaire_spritesheet.png" id="1_455tu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbske"]
+atlas = ExtResource("1_455tu")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcxur"]
+atlas = ExtResource("1_455tu")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bruh"]
+atlas = ExtResource("1_455tu")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6gux"]
+atlas = ExtResource("1_455tu")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_228qv"]
+atlas = ExtResource("1_455tu")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_841d0"]
+atlas = ExtResource("1_455tu")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f50v7"]
+atlas = ExtResource("1_455tu")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybrmu"]
+atlas = ExtResource("1_455tu")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0iiw"]
+atlas = ExtResource("1_455tu")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dar5g"]
+atlas = ExtResource("1_455tu")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jplgj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbske")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcxur")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bruh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6gux")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_228qv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_841d0")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f50v7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybrmu")
+}],
+"loop": true,
+"name": &"right",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0iiw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dar5g")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[node name="Legionaire" type="CharacterBody2D"]
+position = Vector2(0, -1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(175.5, 169.5)
+scale = Vector2(11.4688, 11.4688)
+sprite_frames = SubResource("SpriteFrames_jplgj")
+animation = &"left"
+autoplay = "idle"
+frame_progress = 0.817158
