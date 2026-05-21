@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://70lkyrqdfcv3"]
+[gd_scene load_steps=48 format=3 uid="uid://70lkyrqdfcv3"]
 
 [ext_resource type="Texture2D" uid="uid://by6n6ef5m8h50" path="res://Assets/HunterOrc/Projectile/Proyectile1.png" id="1_8hfon"]
 [ext_resource type="Texture2D" uid="uid://vuws8ll5ic8v" path="res://Assets/HunterOrc/Attack1/Attack1.png" id="2_3n6u2"]
@@ -325,18 +325,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Animation" id="Animation_r011q"]
-resource_name = "walking_right"
-
-[sub_resource type="Animation" id="Animation_lfrwr"]
-resource_name = "walking_left"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_oj8wg"]
-_data = {
-"walking_left": SubResource("Animation_lfrwr"),
-"walking_right": SubResource("Animation_r011q")
-}
-
 [node name="Org" type="CharacterBody2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -345,8 +333,3 @@ position = Vector2(72, 72)
 scale = Vector2(5.5, 5.5)
 sprite_frames = SubResource("SpriteFrames_sdn5i")
 animation = &"walking_left"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_oj8wg")
-}
