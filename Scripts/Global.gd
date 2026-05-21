@@ -3,6 +3,7 @@ extends Node
 
 # Variables
 var game_camera: Camera2D = null
+var hp: int = 100
 
 
 # Called when the node enters the scene tree for the first time.
