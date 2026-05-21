@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://dgwlvfc6ywq3p" path="res://Assets/Apocalypse Character Pack/Player/Idle.png" id="2_j02ja"]
 [ext_resource type="Texture2D" uid="uid://dxjnai1xxvec" path="res://Assets/Apocalypse Character Pack/Player/Walk.png" id="3_ktlh1"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_l7u56"]
+radius = 32.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_jrovn"]
 atlas = ExtResource("2_j02ja")
 region = Rect2(0, 0, 32, 32)
@@ -220,21 +223,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lw7x1"]
-size = Vector2(29, 25)
-
 [node name="Player" type="CharacterBody2D"]
 z_index = 10
 script = ExtResource("1_l4c46")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_l7u56")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(-7.62939e-06, 0)
-scale = Vector2(2.6875, 2.6875)
+scale = Vector2(3.375, 3.375)
 sprite_frames = SubResource("SpriteFrames_nthod")
 animation = &"Idle_Up"
 autoplay = "Idle_Down"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, 25.5)
-shape = SubResource("RectangleShape2D_lw7x1")
