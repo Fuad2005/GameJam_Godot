@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://bjkxp2iosjpbv"]
+[gd_scene load_steps=25 format=3 uid="uid://cy3hcd5aiqqck"]
 
 [ext_resource type="Texture2D" uid="uid://c4p0jdni76wvy" path="res://Assets/7demons/legionaire_spritesheet.png" id="1_455tu"]
+[ext_resource type="Script" path="res://Scripts/boss_2.gd" id="2_4byti"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_awh44"]
 atlas = ExtResource("1_455tu")
@@ -180,14 +181,24 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_euaem"]
+radius = 12.0
+height = 44.0
+
 [node name="Legionaire" type="CharacterBody2D"]
 position = Vector2(0, -1)
+script = ExtResource("2_4byti")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(175.5, 169.5)
-scale = Vector2(11.4688, 11.4688)
+position = Vector2(-2.86102e-06, 0.499998)
+scale = Vector2(2, 1.96875)
 sprite_frames = SubResource("SpriteFrames_jplgj")
-animation = &"attack"
+animation = &"right"
 autoplay = "idle"
-frame_progress = 0.978673
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_euaem")
+
+[node name="StateTimer" type="Timer" parent="."]
