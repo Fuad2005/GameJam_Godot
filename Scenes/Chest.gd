@@ -24,7 +24,7 @@ func hit_by_blade():
 
 
 func _on_blade_trigger_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void: # Replace with function body.
-	print("JSlfiJASDlkfjsDJFSKDJF")
+
 
 	if area.name == "BladeHitbox": 
 		hit_by_blade()

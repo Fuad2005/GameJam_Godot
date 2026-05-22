@@ -155,5 +155,15 @@ func _play_idle_animation(dir: Vector2) -> void:
 
 # --- Blade hitbox signal ---
 func _on_BladeHitbox_body_entered(body):
-	if body.is_in_group("Chests"):
-		body.hit_by_blade()
+	var target = body
+	# if the collided object isn't the expected parent, try its parent
+	if not target.is_in_group("Chests") and not target.is_in_group("Enemies") and target.get_parent():
+		target = target.get_parent()
+	print(target)
+	
+	if target.is_in_group("Chests"):
+		if target.has_method("hit_by_blade"):
+			target.hit_by_blade()
+	elif target.is_in_group("Enemies"):
+		if target.has_method("take_damage"):
+			target.take_damage(1)

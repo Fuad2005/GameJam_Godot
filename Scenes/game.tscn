@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://df3xk5seg35u"]
+[gd_scene load_steps=30 format=4 uid="uid://df3xk5seg35u"]
 
 [ext_resource type="Texture2D" uid="uid://nbevsf62jsqj" path="res://Assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Tileset Grass.png" id="1_fi323"]
 [ext_resource type="PackedScene" uid="uid://b03ha8sib3dbj" path="res://Scenes/player.tscn" id="1_wvlti"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/boss_1.tscn" id="7_ey5yw"]
 [ext_resource type="PackedScene" uid="uid://cy3hcd5aiqqck" path="res://Scenes/legionaire.tscn" id="13_w0tnw"]
 [ext_resource type="PackedScene" uid="uid://bd3dj2emwnuka" path="res://Scenes/merchant.tscn" id="14_wq26j"]
+[ext_resource type="PackedScene" uid="uid://cieixk5o06lix" path="res://slime.tscn" id="15_578ma"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rr4qo"]
 texture = ExtResource("1_fi323")
@@ -1444,7 +1445,7 @@ tile_map_data = PackedByteArray("AAAUAP7/AAAFAAAAAAAUAP//AAAFAAEAAAAUAAAAAAAFAAA
 tile_set = SubResource("TileSet_jomgs")
 
 [node name="Player" parent="." instance=ExtResource("1_wvlti")]
-position = Vector2(659, -908)
+position = Vector2(2047, 512)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target_node")]
 zoom = Vector2(1.8, 1.8)
@@ -1475,3 +1476,6 @@ position = Vector2(565, -1480)
 
 [node name="merchant" parent="." instance=ExtResource("14_wq26j")]
 position = Vector2(-28, -993)
+
+[node name="Node2D" parent="." instance=ExtResource("15_578ma")]
+position = Vector2(2325, 472)
