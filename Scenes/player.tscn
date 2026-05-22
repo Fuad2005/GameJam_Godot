@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://b03ha8sib3dbj"]
+[gd_scene load_steps=50 format=3 uid="uid://b03ha8sib3dbj"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_l4c46"]
 [ext_resource type="Texture2D" uid="uid://dgwlvfc6ywq3p" path="res://Assets/Apocalypse Character Pack/Player/Idle.png" id="2_j02ja"]
@@ -356,7 +356,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lw7x1"]
-size = Vector2(17.75, 19)
+size = Vector2(12, 19)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c11pp"]
+radius = 40.025
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -365,8 +368,8 @@ script = ExtResource("1_l4c46")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 texture_filter = 1
-position = Vector2(0, 4.76837e-07)
-scale = Vector2(2.34375, 2.34375)
+position = Vector2(-2.38419e-07, 2.38419e-07)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nthod")
 animation = &"Stab_Left"
 autoplay = "Idle_Down"
@@ -375,7 +378,7 @@ frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
-position = Vector2(1.125, 24)
+position = Vector2(2, 20)
 shape = SubResource("RectangleShape2D_lw7x1")
 
 [node name="DashSound" type="AudioStreamPlayer2D" parent="."]
@@ -383,3 +386,11 @@ stream = ExtResource("5_pk2lg")
 
 [node name="StabSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_b8itl")
+
+[node name="BladeHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BladeHitbox"]
+shape = SubResource("CircleShape2D_c11pp")
+disabled = true
+
+[connection signal="body_entered" from="BladeHitbox" to="." method="_on_blade_hitbox_body_entered"]
