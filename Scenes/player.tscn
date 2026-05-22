@@ -356,7 +356,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lw7x1"]
-size = Vector2(17.75, 19)
+size = Vector2(12, 19)
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -365,8 +365,8 @@ script = ExtResource("1_l4c46")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 texture_filter = 1
-position = Vector2(0, 4.76837e-07)
-scale = Vector2(2.34375, 2.34375)
+position = Vector2(-2.38419e-07, 2.38419e-07)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nthod")
 animation = &"Stab_Left"
 autoplay = "Idle_Down"
@@ -375,7 +375,7 @@ frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
-position = Vector2(1.125, 24)
+position = Vector2(2, 20)
 shape = SubResource("RectangleShape2D_lw7x1")
 
 [node name="DashSound" type="AudioStreamPlayer2D" parent="."]
