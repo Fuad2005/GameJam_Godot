@@ -11,7 +11,8 @@ extends CharacterBody2D
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var dash_sound: AudioStreamPlayer2D = $DashSound
 @onready var stab_sound: AudioStreamPlayer2D = $StabSound
-@onready var blade_hitbox: Area2D = $BladeHitbox  # Added blade hitbox reference
+@onready var blade_hitbox: Area2D = $BladeHitbox # Added blade hitbox reference
+@onready var ui_manager = get_node_or_null("/root/Game/CanvasLayer/UIManager")  
 
 # This array acts as our memory buffer for pressed directions
 var input_history: Array[Vector2] = []
@@ -24,7 +25,23 @@ var is_dashing: bool = false
 var can_dash: bool = true
 var is_stabbing: bool = false
 
+
+func _process(delta: float) -> void:
+	# 1. Increment the value cleanly over time using delta
+	# (0.05 * 60 frames = ~3 panic points per second)
+	Global.panic += 0.05
+	
+	# 2. Use our cached reference. No more searching means NO MORE LAG!
+	if ui_manager:
+		ui_manager.update_stress()
+
 func _physics_process(delta: float) -> void:
+	if Global.is_talking:
+		input_history.clear() # Wipe the buffer so they don't "remember" keys held down
+		velocity = Vector2.ZERO # Instantly kill any sliding momentum
+		_play_idle_animation(last_facing_direction) # Force the correct static idle frame
+		move_and_slide()
+		return # Stop execution here so no actions or movements can run
 	_handle_input_buffer()
 
 	if not is_dashing:
@@ -55,6 +72,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _handle_input_buffer() -> void:
+	
+	if Global.is_talking:
+		return
+		
 	var actions = {
 		"move_left": Vector2.LEFT,
 		"move_right": Vector2.RIGHT,
