@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=4 uid="uid://df3xk5seg35u"]
+[gd_scene load_steps=9 format=4 uid="uid://camc2pr0vpa04"]
 
-[ext_resource type="PackedScene" uid="uid://b03ha8sib3dbj" path="res://Scenes/player.tscn" id="1_wvlti"]
+[ext_resource type="PackedScene" path="res://Scenes/player.tscn" id="1_wvlti"]
 [ext_resource type="Texture2D" uid="uid://bnjqid66l24r4" path="res://Assets/pocket-islands-v2.0/tiles-grass-32x32.png" id="3_3qshn"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="4_213wx"]
 [ext_resource type="Texture2D" uid="uid://b5ilihspwr04y" path="res://Assets/pocket-islands-v2.0/tiles-water-32x32.png" id="4_o4rqp"]
