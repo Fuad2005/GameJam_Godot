@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://b03ha8sib3dbj"]
+[gd_scene load_steps=51 format=3 uid="uid://b03ha8sib3dbj"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_l4c46"]
 [ext_resource type="Texture2D" uid="uid://dgwlvfc6ywq3p" path="res://Assets/Apocalypse Character Pack/Player/Idle.png" id="2_j02ja"]
@@ -361,6 +361,10 @@ size = Vector2(12, 19)
 [sub_resource type="CircleShape2D" id="CircleShape2D_c11pp"]
 radius = 40.025
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6jxw6"]
+radius = 13.0
+height = 48.0
+
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 script = ExtResource("1_l4c46")
@@ -392,5 +396,11 @@ stream = ExtResource("6_b8itl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BladeHitbox"]
 shape = SubResource("CircleShape2D_c11pp")
 disabled = true
+
+[node name="HitCheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitCheck"]
+position = Vector2(3, 6)
+shape = SubResource("CapsuleShape2D_6jxw6")
 
 [connection signal="body_entered" from="BladeHitbox" to="." method="_on_blade_hitbox_body_entered"]

@@ -1,0 +1,84 @@
+[gd_scene load_steps=14 format=3 uid="uid://bhv8ryrp7ex8q"]
+
+[ext_resource type="Script" path="res://Scripts/ui_manager.gd" id="1_s48qe"]
+[ext_resource type="Texture2D" uid="uid://dabbygwbt35o6" path="res://Assets/Background/heart.png" id="2_c85kt"]
+[ext_resource type="Texture2D" uid="uid://b37g2j4rvuqjb" path="res://Assets/Background/stress_bar/redMeter01.png" id="2_j7nob"]
+[ext_resource type="Texture2D" uid="uid://1j51n2q02l05" path="res://Assets/Background/off_heart.png" id="3_hc7oa"]
+[ext_resource type="Texture2D" uid="uid://ygym5kw18n1" path="res://Assets/Background/stress_bar/redMeter02.png" id="3_yq4be"]
+[ext_resource type="Texture2D" uid="uid://ciatatktm72uy" path="res://Assets/Background/stress_bar/redMeter03.png" id="4_nng0a"]
+[ext_resource type="Texture2D" uid="uid://x72drs12u3ix" path="res://Assets/Background/stress_bar/redMeter04.png" id="5_j7w8d"]
+[ext_resource type="Texture2D" uid="uid://dmu5fumiadrsf" path="res://Assets/Background/stress_bar/redMeter05.png" id="6_l1pmd"]
+[ext_resource type="Texture2D" uid="uid://bdessk0jmxwig" path="res://Assets/Background/stress_bar/redMeter06.png" id="7_swy1j"]
+[ext_resource type="Texture2D" uid="uid://cvbq4vo2ee7q7" path="res://Assets/Background/stress_bar/redMeter07.png" id="8_guy2a"]
+[ext_resource type="Texture2D" uid="uid://dcom5w2i7vf26" path="res://Assets/Background/stress_bar/redMeter08.png" id="9_snlna"]
+[ext_resource type="Texture2D" uid="uid://yketcac1qbmp" path="res://Assets/Background/stress_bar/redMeter09.png" id="10_3mpai"]
+[ext_resource type="Texture2D" uid="uid://b1ms4euta3ibn" path="res://Assets/Background/stress_bar/redMeter10.png" id="11_jq7tv"]
+
+[node name="UIManager" type="Control" node_paths=PackedStringArray("stress_bar", "health_container")]
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s48qe")
+stress_bar = NodePath("StressBar")
+stress_textures = Array[Texture2D]([ExtResource("2_j7nob"), ExtResource("3_yq4be"), ExtResource("4_nng0a"), ExtResource("5_j7w8d"), ExtResource("6_l1pmd"), ExtResource("7_swy1j"), ExtResource("8_guy2a"), ExtResource("9_snlna"), ExtResource("10_3mpai"), ExtResource("11_jq7tv")])
+health_container = NodePath("HBoxContainer")
+full_heart = ExtResource("2_c85kt")
+empty_heart = ExtResource("3_hc7oa")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 998.0
+offset_right = 78.0
+offset_bottom = 1037.0
+scale = Vector2(2.02087, 1.69581)
+
+[node name="Heart1" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_c85kt")
+stretch_mode = 5
+
+[node name="Heart2" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_c85kt")
+stretch_mode = 5
+
+[node name="Heart3" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_c85kt")
+stretch_mode = 5
+
+[node name="StressBar" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_top = 19.0
+offset_right = 2.0
+offset_bottom = 27.0
+grow_horizontal = 2
+scale = Vector2(1.96334, 3.21846)
+texture = ExtResource("2_j7nob")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 941.0
+offset_top = 57.0
+offset_right = 987.0
+offset_bottom = 80.0
+text = "Panic"
+
+[node name="CountdownLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 864.0
+offset_top = 352.0
+offset_right = 1120.0
+offset_bottom = 416.0
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
