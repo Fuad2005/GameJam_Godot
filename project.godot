@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GameJam"
-run/main_scene="res://Scenes/game.tscn"
+run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
@@ -29,7 +29,8 @@ directories/dch_directory={
 "unit_test_character": "res://dialogic-main/Tests/Resources/unit_test_character.dch"
 }
 directories/dtl_directory={
-"boss1_dialog": "res://boss1_dialog.dtl"
+"boss1_dialog": "res://boss1_dialog.dtl",
+"boss2_dialog": "res://boss2_dialog.dtl"
 }
 layout/style_directory={}
 layout/style_list=[]
@@ -48,7 +49,7 @@ animations/leave_default_length=0.5
 animations/leave_default_wait=true
 animations/cross_fade_default_length=0.5
 choices/autofocus_first=false
-choices/delay=1.0
+choices/delay=0.5
 choices/reveal_delay=0
 choices/reveal_by_input=false
 save/autosave_delay=60.0

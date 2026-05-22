@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://o8enbasy7354"]
+[gd_scene load_steps=7 format=3 uid="uid://c586swg6ge863"]
 
 [ext_resource type="Script" path="res://Scenes/Chest.gd" id="1_bgkmv"]
 [ext_resource type="Texture2D" uid="uid://do7sggrq11tdh" path="res://Assets/Chests/chest_closed.png" id="2_ebawi"]
 [ext_resource type="Texture2D" uid="uid://bvo1xwqaimb4a" path="res://Assets/Chests/chest_open.png" id="3_dc5bj"]
+[ext_resource type="AudioStream" uid="uid://getss0d0c8ig" path="res://Assets/coin-collect-tower-geometry-dash.mp3" id="4_4nh7n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fwyi"]
 size = Vector2(32, 32)
@@ -29,5 +30,8 @@ texture = ExtResource("2_ebawi")
 y_sort_enabled = true
 position = Vector2(-16, 22)
 shape = SubResource("RectangleShape2D_5xtep")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_4nh7n")
 
 [connection signal="area_shape_entered" from="BladeTrigger" to="." method="_on_blade_trigger_area_shape_entered"]

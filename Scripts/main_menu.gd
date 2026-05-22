@@ -22,4 +22,4 @@ func _on_background_timer_timeout():
 func _on_play_button_pressed():
 	button_sound.play()
 	await button_sound.finished
-	get_tree().change_scene_to_file("res://Scenes/game.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Cutscene.tscn")
