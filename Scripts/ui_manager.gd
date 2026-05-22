@@ -10,13 +10,15 @@ extends Control
 @export var empty_heart: Texture2D
 
 @onready var countdown_label: Label = $CountdownLabel
+@onready var coin_count: Label = $CoinCount
 
 func _ready() -> void:
 	countdown_label.hide()
 	
-	# Initial sync right when the game loads
+	# Initial sync right when the game loads for all UI elements
 	update_health()
 	update_stress()
+	update_coins()
 
 
 func start_fight_countdown() -> void:
@@ -43,15 +45,8 @@ func update_stress() -> void:
 	if not stress_bar or stress_textures.is_empty():
 		return
 		
-	# 1. Convert the 0-100 range to a 0-9 index by dividing by 10.
-	# Example: Panic 45 / 10 = 4.5. Storing it as an int automatically drops the decimal to 4.
 	var index: int = int(Global.panic / 10)
-	
-	# 2. Use clampi() as a safety net so the index never goes below 0 
-	# or higher than your maximum array size (index 9 for 10 textures).
 	index = clampi(index, 0, stress_textures.size() - 1)
-	
-	# 3. Swap the image texture to match the mapped range
 	stress_bar.texture = stress_textures[index]
 
 
@@ -67,3 +62,12 @@ func update_health() -> void:
 			hearts[i].texture = full_heart
 		else:
 			hearts[i].texture = empty_heart
+
+
+# --- COIN LOGIC ---
+func update_coins() -> void:
+	if not coin_count:
+		return
+		
+	# Grabs the current coin count integer from Global.gd and converts it to a String
+	coin_count.text = ": " + str(Global.coins)

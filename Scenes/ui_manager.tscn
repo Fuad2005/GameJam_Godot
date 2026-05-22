@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bhv8ryrp7ex8q"]
+[gd_scene load_steps=15 format=3 uid="uid://bhv8ryrp7ex8q"]
 
 [ext_resource type="Script" path="res://Scripts/ui_manager.gd" id="1_s48qe"]
 [ext_resource type="Texture2D" uid="uid://dabbygwbt35o6" path="res://Assets/Background/heart.png" id="2_c85kt"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dcom5w2i7vf26" path="res://Assets/Background/stress_bar/redMeter08.png" id="9_snlna"]
 [ext_resource type="Texture2D" uid="uid://yketcac1qbmp" path="res://Assets/Background/stress_bar/redMeter09.png" id="10_3mpai"]
 [ext_resource type="Texture2D" uid="uid://b1ms4euta3ibn" path="res://Assets/Background/stress_bar/redMeter10.png" id="11_jq7tv"]
+[ext_resource type="Texture2D" uid="uid://dje38njyt6c7p" path="res://Assets/VelmoraRealmsFree/PNG/coin.png" id="14_jm3bn"]
 
 [node name="UIManager" type="Control" node_paths=PackedStringArray("stress_bar", "health_container")]
 z_index = 10
@@ -82,3 +83,23 @@ offset_bottom = 416.0
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CoinCount" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1824.0
+offset_top = 32.0
+offset_right = 1920.0
+offset_bottom = 67.0
+theme_override_font_sizes/font_size = 25
+text = ": 10"
+vertical_alignment = 1
+
+[node name="CoinIcon" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1775.0
+offset_top = 32.0
+offset_right = 1815.0
+offset_bottom = 72.0
+texture = ExtResource("14_jm3bn")

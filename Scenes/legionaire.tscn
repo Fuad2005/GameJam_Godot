@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cy3hcd5aiqqck"]
+[gd_scene load_steps=26 format=3 uid="uid://c4f6lbdhop2k"]
 
 [ext_resource type="Texture2D" uid="uid://c4p0jdni76wvy" path="res://Assets/7demons/legionaire_spritesheet.png" id="1_455tu"]
 [ext_resource type="Script" path="res://Scripts/boss_2.gd" id="2_4byti"]
@@ -185,6 +185,9 @@ animations = [{
 radius = 12.0
 height = 44.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ibv4i"]
+radius = 96.0
+
 [node name="Legionaire" type="CharacterBody2D"]
 position = Vector2(0, -1)
 script = ExtResource("2_4byti")
@@ -202,3 +205,10 @@ position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_euaem")
 
 [node name="StateTimer" type="Timer" parent="."]
+
+[node name="TriggerArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerArea"]
+shape = SubResource("CircleShape2D_ibv4i")
+
+[connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
