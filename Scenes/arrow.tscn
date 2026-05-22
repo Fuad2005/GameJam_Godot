@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://csh0y6dq5fqt2"]
+
+[ext_resource type="Script" path="res://Scenes/arrow.gd" id="1_bnd3o"]
+[ext_resource type="Texture2D" uid="uid://by6n6ef5m8h50" path="res://Assets/HunterOrc/Projectile/Proyectile1.png" id="1_xcmap"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enjl4"]
+size = Vector2(34, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_10iqn"]
+size = Vector2(34, 10)
+
+[node name="Arrow" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 3
+gravity_scale = 0.0
+script = ExtResource("1_bnd3o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_enjl4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_xcmap")
+
+[node name="ArrowHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArrowHitbox"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_10iqn")
+
+[connection signal="area_entered" from="ArrowHitbox" to="." method="_on_arrow_hitbox_area_entered"]
+[connection signal="body_entered" from="ArrowHitbox" to="." method="_on_arrow_hitbox_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://df3xk5seg35u"]
+[gd_scene load_steps=18 format=4 uid="uid://df3xk5seg35u"]
 
 [ext_resource type="Texture2D" uid="uid://nbevsf62jsqj" path="res://Assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Tileset Grass.png" id="1_fi323"]
 [ext_resource type="PackedScene" uid="uid://b03ha8sib3dbj" path="res://Scenes/player.tscn" id="1_wvlti"]
@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="4_213wx"]
 [ext_resource type="Texture2D" uid="uid://jn1sqipbgvwa" path="res://Assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Plant.png" id="4_xwe6e"]
 [ext_resource type="PackedScene" uid="uid://begu6h7yndth0" path="res://Scenes/boss_1.tscn" id="7_ey5yw"]
-[ext_resource type="PackedScene" uid="uid://o8enbasy7354" path="res://Scenes/Chest.tscn" id="7_arc6p"]
+[ext_resource type="PackedScene" uid="uid://bhv8ryrp7ex8q" path="res://Scenes/ui_manager.tscn" id="9_iyeq8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rr4qo"]
 texture = ExtResource("1_fi323")
@@ -153,7 +153,7 @@ texture_region_size = Vector2i(32, 32)
 7:4/0 = 0
 7:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 8:4/0 = 0
-8:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -8, -16, -8, -8, -16, -8)
+8:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 12:4/0 = 0
 13:4/0 = 0
 1:6/0 = 0
@@ -557,7 +557,7 @@ tile_map_data = PackedByteArray("AAAUAP7/AAAFAAAAAAAUAP//AAAFAAEAAAAUAAAAAAAFAAA
 tile_set = SubResource("TileSet_jomgs")
 
 [node name="Player" parent="." instance=ExtResource("1_wvlti")]
-position = Vector2(160, 192)
+position = Vector2(806, -257)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target_node")]
 zoom = Vector2(1.8, 1.8)
@@ -568,5 +568,7 @@ target_node = NodePath("../Player")
 
 [node name="Boss_1" parent="." instance=ExtResource("7_ey5yw")]
 position = Vector2(960, -448)
-[node name="Chest" parent="." instance=ExtResource("7_arc6p")]
-position = Vector2(384, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UIManager" parent="CanvasLayer" instance=ExtResource("9_iyeq8")]
