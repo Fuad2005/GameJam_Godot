@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://biwa34aeqvcy6"]
+[gd_scene load_steps=2 format=3 uid="uid://1tlxrrprn6hv"]
 
 [ext_resource type="Script" path="res://Scripts/cutscene.gd" id="1_kau2r"]
 
@@ -16,3 +16,8 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.267, 1)
 stretch_mode = 5
+
+[node name="SubtitleLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

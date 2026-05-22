@@ -221,7 +221,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lw7x1"]
-size = Vector2(21, 19)
+size = Vector2(17.75, 19)
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -230,13 +230,13 @@ script = ExtResource("1_l4c46")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 texture_filter = 1
-position = Vector2(-7.62939e-06, 0)
-scale = Vector2(2.6875, 2.6875)
+position = Vector2(0, 4.76837e-07)
+scale = Vector2(2.34375, 2.34375)
 sprite_frames = SubResource("SpriteFrames_nthod")
 animation = &"Idle_Up"
 autoplay = "Idle_Down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
-position = Vector2(1.5, 28.5)
+position = Vector2(1.125, 24)
 shape = SubResource("RectangleShape2D_lw7x1")
