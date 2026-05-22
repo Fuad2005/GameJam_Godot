@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxf8pyoa2ba44"]
+
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_5lv25"]
+[ext_resource type="Texture2D" uid="uid://c86nppu27havw" path="res://Assets/resume_button.png" id="1_p6kka"]
+[ext_resource type="Texture2D" uid="uid://bieueg6d4pji3" path="res://Assets/resume_button_pressed.png" id="2_fqa31"]
+[ext_resource type="Texture2D" uid="uid://df64wf1h0jfq3" path="res://Assets/home.png" id="3_6g8vt"]
+[ext_resource type="Texture2D" uid="uid://daywhlgjk36th" path="res://Assets/home_pressed.png" id="4_c6avu"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5lv25")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PAUSED" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Resume" type="TextureButton" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("1_p6kka")
+texture_pressed = ExtResource("2_fqa31")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Home" type="TextureButton" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(340, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("3_6g8vt")
+texture_pressed = ExtResource("4_c6avu")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Home" to="." method="_on_home_pressed"]
