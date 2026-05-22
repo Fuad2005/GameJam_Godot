@@ -1,13 +1,6 @@
 extends Node
 
 
-# Variables
-var game_camera: Camera2D = null
-var hp: int = 100
-var coins: int = 0
-var panic: int = 0
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
