@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://df3xk5seg35u"]
+[gd_scene load_steps=29 format=4 uid="uid://df3xk5seg35u"]
 
 [ext_resource type="Texture2D" uid="uid://nbevsf62jsqj" path="res://Assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Tileset Grass.png" id="1_fi323"]
 [ext_resource type="PackedScene" uid="uid://b03ha8sib3dbj" path="res://Scenes/player.tscn" id="1_wvlti"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://o8enbasy7354" path="res://Scenes/Chest.tscn" id="7_arc6p"]
 [ext_resource type="PackedScene" path="res://Scenes/boss_1.tscn" id="7_ey5yw"]
 [ext_resource type="PackedScene" uid="uid://cy3hcd5aiqqck" path="res://Scenes/legionaire.tscn" id="13_w0tnw"]
+[ext_resource type="PackedScene" uid="uid://bd3dj2emwnuka" path="res://Scenes/merchant.tscn" id="14_wq26j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rr4qo"]
 texture = ExtResource("1_fi323")
@@ -1471,3 +1472,6 @@ position = Vector2(-160, -1621)
 
 [node name="Legionaire" parent="." instance=ExtResource("13_w0tnw")]
 position = Vector2(565, -1480)
+
+[node name="merchant" parent="." instance=ExtResource("14_wq26j")]
+position = Vector2(-28, -993)

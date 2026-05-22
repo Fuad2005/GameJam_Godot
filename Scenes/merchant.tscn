@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://djeg322dj7m3d"]
+[gd_scene load_steps=10 format=3 uid="uid://bd3dj2emwnuka"]
 
 [ext_resource type="Texture2D" uid="uid://dlvx35jwptppu" path="res://Assets/Wizard_Idle_Walk_Spritesheet.png" id="1_s7o63"]
 
@@ -52,12 +52,18 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v0xu7"]
+radius = 21.0
+height = 74.0
+
 [node name="merchant" type="CharacterBody2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(93, 93)
-scale = Vector2(6.8125, 6.8125)
+scale = Vector2(2.35156, 2.35156)
 sprite_frames = SubResource("SpriteFrames_vcx4o")
 animation = &"idle"
 frame_progress = 0.0276862
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_v0xu7")
