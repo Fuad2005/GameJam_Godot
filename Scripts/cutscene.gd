@@ -1,22 +1,22 @@
 extends Control
 
-var voice_path := "res://Scenes/Prologue/cutscene_sound.ogg"
+var voice_path := "res://Scenes/Prologue/prologue.wav"
 
 var prologue_slides = [
 	{
 		"image": "res://Scenes/Prologue/prologue_1.png",
 		"subtitle": "There was a child who learned early that silence was safer than words. A child who grew up in rooms where laughter was rare… and footsteps meant fear.",
-		"duration": 7.0
+		"duration": 11.5
 	},
 	{
 		"image": "res://Scenes/Prologue/prologue_2.png",
 		"subtitle": "Over time, his mind built a place of its own — a space where nothing could hurt him. But minds are strange things… What is built to protect… can also become a prison.",
-		"duration": 8.0
+		"duration": 14.3
 	},
 	{
 		"image": "res://Scenes/Prologue/prologue_3.png",
 		"subtitle": "And in this space… the child still runs. From things he cannot name. From things he cannot escape.",
-		"duration": 6.0
+		"duration": 11.5
 	}
 ]
 
