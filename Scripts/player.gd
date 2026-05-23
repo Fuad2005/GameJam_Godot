@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var dash_sound: AudioStreamPlayer2D = $DashSound
 @onready var stab_sound: AudioStreamPlayer2D = $StabSound
 @onready var blade_hitbox: Area2D = $BladeHitbox 
+@onready var step_sound: AudioStreamPlayer2D = $StepSound
 @onready var ui_manager = get_node_or_null("/root/Game/CanvasLayer/UIManager")  
 
 var input_history: Array[Vector2] = []
@@ -32,6 +33,8 @@ func _process(delta: float) -> void:
 	
 	if not is_in_panic and Global.panic > 0.1:
 		Global.panic_change = -0.05
+	elif not is_in_panic and Global.panic <= 0:
+		Global.panic = 0
 	
 	if ui_manager:
 		ui_manager.update_stress()
@@ -72,7 +75,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	# --- 2. HANDLE MOVEMENT & RUNNING/IDLE ANIMATIONS ---
+# --- 2. HANDLE MOVEMENT & RUNNING/IDLE ANIMATIONS ---
 	if not input_history.is_empty():
 		var current_direction: Vector2 = input_history.back()
 		last_facing_direction = current_direction
@@ -80,15 +83,27 @@ func _physics_process(delta: float) -> void:
 		if is_stabbing:
 			# Move with penalty, but DO NOT change the animation (let the stab finish!)
 			velocity = current_direction * (Global.speed * stab_move_penalty)
+			# Stop steps if they are stabbing mid-walk (optional flavor adjustment)
+			if step_sound.playing:
+				step_sound.stop()
 		else:
 			# Normal movement and normal walking animations
 			velocity = current_direction * Global.speed
 			_update_sprite_direction(current_direction)
+			
+			# --- PLAY FOOTSTEPS HERE ---
+			# Play the sound loop only if it's not already playing
+			if not step_sound.playing:
+				step_sound.play()
 	else:
 		# Decelerate to a stop
 		velocity = velocity.move_toward(Vector2.ZERO, Global.speed)
 		if not is_stabbing:
 			_play_idle_animation(last_facing_direction)
+		
+		# --- STOP FOOTSTEPS WHEN IDLE ---
+		if step_sound.playing:
+			step_sound.stop()
 
 	move_and_slide()
 

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GameJam"
-run/main_scene="res://Scenes/game.tscn"
+run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
@@ -35,7 +35,7 @@ directories/dtl_directory={
 "boss2_dialog": "res://boss2_dialog.dtl",
 "boss2_fight_dialog": "res://boss2_fight_dialog.dtl",
 "escape_dialog": "res://escape_dialog.dtl",
-"merchant_dialogue": "res://merchant_dialogue.dtl"
+"merchant_dialogue": "res://merchant_dialogue.dtl",
 "mom-dad": "res://mom-dad.dtl"
 }
 layout/style_directory={}
@@ -80,8 +80,6 @@ audio/channel_defaults={
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/window_width_override=3840
-window/size/window_height_override=2160
 window/stretch/mode="canvas_items"
 window/max_fps=60
 

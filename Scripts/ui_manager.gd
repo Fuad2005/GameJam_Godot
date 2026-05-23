@@ -38,7 +38,7 @@ const MISSION_TEXTS := {
 	},
 	3: {
 		"title": "MISSION 3",
-		"text": "Talk to Boss 2"
+		"text": "Talk to the Boss 2"
 	},
 	4: {
 		"title": "MISSION 4",
@@ -46,11 +46,11 @@ const MISSION_TEXTS := {
 	},
 	5: {
 		"title": "MISSION 5",
-		"text": "Come back to Boss 2"
+		"text": "Come back to the Boss 2"
 	},
 	6: {
 		"title": "MISSION 6",
-		"text": "Come back to Boss 1"
+		"text": "Come back to the Boss 1"
 	}
 }
 

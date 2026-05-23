@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c4f6lbdhop2k"]
+[gd_scene load_steps=32 format=3 uid="uid://c4f6lbdhop2k"]
 
 [ext_resource type="Texture2D" uid="uid://c4p0jdni76wvy" path="res://Assets/7demons/legionaire_spritesheet.png" id="1_455tu"]
 [ext_resource type="Script" path="res://Scripts/boss_2.gd" id="2_4byti"]
@@ -225,6 +225,9 @@ radius = 96.0
 radius = 12.0
 height = 58.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_me4nr"]
+radius = 256.0
+
 [node name="Legionaire" type="CharacterBody2D"]
 position = Vector2(0, -1)
 script = ExtResource("2_4byti")
@@ -254,6 +257,11 @@ shape = SubResource("CircleShape2D_ibv4i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CapsuleShape2D_0jknl")
+
+[node name="PanicZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PanicZone"]
+shape = SubResource("CircleShape2D_me4nr")
 
 [connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
 [connection signal="area_shape_entered" from="Hitbox" to="." method="_on_hitbox_area_shape_entered"]

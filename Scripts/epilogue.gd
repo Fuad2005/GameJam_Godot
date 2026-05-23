@@ -20,6 +20,8 @@ var epilogue_slides = [
 	}
 ]
 
+
+
 var index := 0
 var fade_time := 0.4
 
@@ -118,7 +120,7 @@ func play_cutscene() -> void:
 	if voice_player.playing:
 		voice_player.stop()
 
-	get_tree().change_scene_to_file("res://Scenes/game.tscn")
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 
 
 func play_slide(slide: Dictionary) -> void:

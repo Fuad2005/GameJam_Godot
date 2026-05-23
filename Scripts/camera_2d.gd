@@ -9,6 +9,20 @@ var is_following: bool = true
 func _ready() -> void:
 	# Register this camera globally so any script can call it!
 	Global.game_camera = self
+	
+	# --- NEW: PLAY BGM ON START ---
+	# Looks for the "bgm" node inside your Game scene relative to the camera
+	var bgm = get_parent().get_node_or_null("bgm")
+	if bgm and bgm is AudioStreamPlayer: # Handles standard or 2D players safely
+		if not bgm.playing:
+			bgm.play()
+			print("Main theme BGM started cleanly.")
+	else:
+		# Alternative lookup path if "bgm" is a direct child of the root Game scene
+		var root_bgm = get_node_or_null("/root/Game/bgm")
+		if root_bgm and not root_bgm.playing:
+			root_bgm.play()
+	
 
 func _process(delta: float) -> void:
 	if is_following and target_node:

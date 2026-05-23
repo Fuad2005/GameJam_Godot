@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://b03ha8sib3dbj"]
+[gd_scene load_steps=58 format=3 uid="uid://b03ha8sib3dbj"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_l4c46"]
 [ext_resource type="Texture2D" uid="uid://bgvtktpoovxkw" path="res://Assets/Apocalypse Character Pack/Player/Death.png" id="2_1t42m"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://12qmcwhl6bgu" path="res://Assets/mixkit-fast-sword-whoosh-2792.wav" id="5_pk2lg"]
 [ext_resource type="AudioStream" uid="uid://bi8e6ube5dlwo" path="res://Assets/54427377-sword-slash-476148_Kiz1XsYf.mp3" id="6_b8itl"]
 [ext_resource type="AudioStream" uid="uid://dkrad5kgkbed8" path="res://Assets/minecraft-damage_OTtnom6.wav" id="7_6sthe"]
+[ext_resource type="AudioStream" uid="uid://m207yc1lay0l" path="res://Assets/Random8.wav" id="9_cpu15"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w8fb2"]
 atlas = ExtResource("2_1t42m")
@@ -440,6 +441,8 @@ shape = SubResource("CapsuleShape2D_6jxw6")
 stream = ExtResource("7_6sthe")
 
 [node name="StepSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_cpu15")
+volume_db = -14.523
 
 [connection signal="body_entered" from="BladeHitbox" to="." method="_on_blade_hitbox_body_entered"]
 [connection signal="area_shape_entered" from="HitCheck" to="." method="_on_hit_check_area_shape_entered"]
