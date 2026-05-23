@@ -8,5 +8,6 @@ func _ready():
 func _on_body_entered(body: Node) -> void:
 	if body.name == "Player":
 		Global.key = true   # set the global key boolean
+		Global.current_mission = 3
 		queue_free()        # remove the key from the scene
 		print("Picked up key!")

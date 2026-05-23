@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://ccwsbgjabbdqw"]
+[gd_scene load_steps=51 format=3 uid="uid://begu6h7yndth0"]
 
 [ext_resource type="Script" path="res://Scripts/boss_1.gd" id="1_0osfv"]
 [ext_resource type="Texture2D" uid="uid://vuws8ll5ic8v" path="res://Assets/HunterOrc/Attack1/Attack1.png" id="2_6i5cx"]
@@ -323,6 +323,9 @@ radius = 96.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3ww32"]
 radius = 32.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_gxlv4"]
+radius = 256.0
+
 [node name="Boss_1" type="CharacterBody2D"]
 script = ExtResource("1_0osfv")
 
@@ -346,6 +349,11 @@ shape = SubResource("CircleShape2D_ho367")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_3ww32")
+
+[node name="PanicZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PanicZone"]
+shape = SubResource("CircleShape2D_gxlv4")
 
 [connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
 [connection signal="body_exited" from="TriggerArea" to="." method="_on_trigger_area_body_exited"]

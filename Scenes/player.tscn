@@ -1,11 +1,29 @@
-[gd_scene load_steps=51 format=3 uid="uid://b03ha8sib3dbj"]
+[gd_scene load_steps=57 format=3 uid="uid://b03ha8sib3dbj"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_l4c46"]
+[ext_resource type="Texture2D" uid="uid://bgvtktpoovxkw" path="res://Assets/Apocalypse Character Pack/Player/Death.png" id="2_1t42m"]
 [ext_resource type="Texture2D" uid="uid://dgwlvfc6ywq3p" path="res://Assets/Apocalypse Character Pack/Player/Idle.png" id="2_j02ja"]
 [ext_resource type="Texture2D" uid="uid://3ahac41lp2t1" path="res://Assets/Apocalypse Character Pack/Player/Stab.png" id="3_j6igg"]
 [ext_resource type="Texture2D" uid="uid://dxjnai1xxvec" path="res://Assets/Apocalypse Character Pack/Player/Walk.png" id="3_ktlh1"]
 [ext_resource type="AudioStream" uid="uid://12qmcwhl6bgu" path="res://Assets/mixkit-fast-sword-whoosh-2792.wav" id="5_pk2lg"]
 [ext_resource type="AudioStream" uid="uid://bi8e6ube5dlwo" path="res://Assets/54427377-sword-slash-476148_Kiz1XsYf.mp3" id="6_b8itl"]
+[ext_resource type="AudioStream" uid="uid://dkrad5kgkbed8" path="res://Assets/minecraft-damage_OTtnom6.wav" id="7_6sthe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8fb2"]
+atlas = ExtResource("2_1t42m")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ueajf"]
+atlas = ExtResource("2_1t42m")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_poypg"]
+atlas = ExtResource("2_1t42m")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mss0"]
+atlas = ExtResource("2_1t42m")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jrovn"]
 atlas = ExtResource("2_j02ja")
@@ -169,6 +187,23 @@ region = Rect2(96, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nthod"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8fb2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ueajf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_poypg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mss0")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 4.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jrovn")
@@ -375,10 +410,8 @@ texture_filter = 1
 position = Vector2(-2.38419e-07, 2.38419e-07)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nthod")
-animation = &"Stab_Left"
+animation = &"Death"
 autoplay = "Idle_Down"
-frame = 3
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
@@ -403,4 +436,11 @@ disabled = true
 position = Vector2(3, 6)
 shape = SubResource("CapsuleShape2D_6jxw6")
 
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_6sthe")
+
+[node name="StepSound" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="body_entered" from="BladeHitbox" to="." method="_on_blade_hitbox_body_entered"]
+[connection signal="area_shape_entered" from="HitCheck" to="." method="_on_hit_check_area_shape_entered"]
+[connection signal="area_shape_exited" from="HitCheck" to="." method="_on_hit_check_area_shape_exited"]

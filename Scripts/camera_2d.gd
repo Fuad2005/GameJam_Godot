@@ -15,3 +15,15 @@ func _process(delta: float) -> void:
 		# Directly set the camera's destination to the target's position.
 		# Godot's built-in "Position Smoothing" handles the smooth glide automatically!
 		global_position = target_node.global_position
+
+
+func shake_camera(intensity: float, duration: float) -> void:
+	var timer = 0.0
+	while timer < duration:
+		# Shift the structural render offset randomly
+		Global.game_camera.offset = Vector2(randf_range(-intensity, intensity), randf_range(-intensity, intensity))
+		await get_tree().process_frame
+		timer += get_process_delta_time()
+	
+	# Reset it back to zero safely
+	Global.game_camera.offset = Vector2.ZERO
