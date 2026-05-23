@@ -1449,7 +1449,7 @@ tile_map_data = PackedByteArray("AAAUAP7/AAAFAAAAAAAUAP//AAAFAAEAAAAUAAAAAAAFAAA
 tile_set = SubResource("TileSet_jomgs")
 
 [node name="Player" parent="." instance=ExtResource("1_wvlti")]
-position = Vector2(313, -1479)
+position = Vector2(832, -312)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target_node")]
 zoom = Vector2(1.8, 1.8)
