@@ -4,5 +4,8 @@ Merchant: Leave? Funny word in a place like this. Would you like to buy some of 
 You: How can I believe you?
 Merchant: Do you have a choice to not believe me? Here you are, running again. Tell me… when you ran before… did it end? Or did it just wait for you somewhere else?
 - Buy speed potion (20 coins)
+	[signal arg="buy_speed_potion"]
 - Buy dash potion (20 coins)
+	[signal arg="buy_dash_potion"]
 - Run away
+	[signal arg="run_away"]
