@@ -185,7 +185,6 @@ func _handle_death() -> void:
 	current_mode = BossMode.DEAD
 	
 	# Turn off the hitboxes right away so the player can't keep hitting the dead body
-	# Assuming your Area2D is named "Hitbox" based on your signal name
 	var hitbox = get_node_or_null("Hitbox")
 	if hitbox:
 		hitbox.monitoring = false
@@ -217,9 +216,12 @@ func _handle_death() -> void:
 	if ui_manager and ui_manager.has_node("EnemyHealthLabel"):
 		ui_manager.get_node("EnemyHealthLabel").hide()
 		
-	# Optional: Remove the boss node completely if you don't want it sitting at the resting spot
-	# queue_free()
+	# --- NEW: POST-TELEPORT PAUSE & SCENE LOAD ---
+	print("Teleported back! Waiting 1 second before loading Epilogue...")
+	await get_tree().create_timer(1.0).timeout
 	
+	# Adjust the path below to match where your epilogue file is saved!
+	get_tree().change_scene_to_file("res://Scenes/epilogue.tscn")
 	
 # --- Trigger Area Detection ---
 func _on_trigger_area_body_entered(body: Node2D) -> void:

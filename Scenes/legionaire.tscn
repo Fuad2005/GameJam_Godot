@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c4f6lbdhop2k"]
+[gd_scene load_steps=31 format=3 uid="uid://c4f6lbdhop2k"]
 
 [ext_resource type="Texture2D" uid="uid://c4p0jdni76wvy" path="res://Assets/7demons/legionaire_spritesheet.png" id="1_455tu"]
 [ext_resource type="Script" path="res://Scripts/boss_2.gd" id="2_4byti"]

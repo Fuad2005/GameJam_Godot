@@ -25,7 +25,7 @@ enum CombatState { CHASING, ATTACKING, COOLDOWN }
 var current_combat_state: CombatState = CombatState.CHASING
 
 # Attack / tracking variables
-var talked_to: bool = false
+var talked_to: int = 0
 var is_fighting: bool = false
 var target_player: CharacterBody2D = null
 var attack_timer: float = 0.0
@@ -222,13 +222,27 @@ func _handle_death() -> void:
 
 # --- Trigger Area Detection ---
 func _on_trigger_area_body_entered(body: Node2D) -> void:
-	if body.name == 'Player' and not talked_to:
-		talked_to = true
-		Global.is_talking = true
-		
-		Dialogic.Choices.choice_selected.connect(_on_dialogic_choice_selected)
-		Dialogic.timeline_ended.connect(_on_dialogue_finished)
-		Dialogic.start("boss2_dialog")
+	if body.name == 'Player':
+		# FIRST INTERACTION
+		if talked_to == 0:
+			talked_to = 1
+			Global.is_talking = true
+			
+			Dialogic.Choices.choice_selected.connect(_on_dialogic_choice_selected)
+			Dialogic.timeline_ended.connect(_on_dialogue_finished)
+			Dialogic.start("boss2_dialog")
+			Global.current_mission = 2
+			
+		# RE-ENTRY INTERACTION (Only runs if the first condition was NOT met)
+		elif talked_to == 1:
+			talked_to = 2
+			Global.is_talking = true
+			
+			Dialogic.Choices.choice_selected.connect(_on_dialogic_choice_selected)
+			Dialogic.timeline_ended.connect(_on_dialogue_finished)
+			Dialogic.start("boss2_fight_dialog")
+			Global.current_mission = 6
+
 
 func _on_dialogic_choice_selected(info: Dictionary) -> void:
 	if info.text == "Fight!":

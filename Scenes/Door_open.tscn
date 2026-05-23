@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b24ns0uodyjy6"]
+[gd_scene load_steps=5 format=3 uid="uid://dhpgwo86av6pb"]
 
 [ext_resource type="Texture2D" uid="uid://y2orlxhptivd" path="res://Assets/door.png" id="1_816m2"]
 [ext_resource type="Script" path="res://Scripts/door_open.gd" id="1_fm4o0"]
@@ -26,3 +26,5 @@ shape = SubResource("RectangleShape2D_d2xj0")
 position = Vector2(-0.999997, 0)
 scale = Vector2(2.59459, 2.17)
 texture = ExtResource("1_816m2")
+
+[connection signal="area_shape_entered" from="BladeTrigger" to="." method="_on_blade_trigger_area_shape_entered"]
