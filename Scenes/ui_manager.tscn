@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bhv8ryrp7ex8q"]
+[gd_scene load_steps=16 format=3 uid="uid://bhv8ryrp7ex8q"]
 
 [ext_resource type="Script" path="res://Scripts/ui_manager.gd" id="1_s48qe"]
 [ext_resource type="Texture2D" uid="uid://dabbygwbt35o6" path="res://Assets/Background/heart.png" id="2_c85kt"]
@@ -15,6 +15,17 @@
 [ext_resource type="Texture2D" uid="uid://b1ms4euta3ibn" path="res://Assets/Background/stress_bar/redMeter10.png" id="11_jq7tv"]
 [ext_resource type="Texture2D" uid="uid://dje38njyt6c7p" path="res://Assets/VelmoraRealmsFree/PNG/coin.png" id="14_jm3bn"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmiox"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.653274, 0.611143, 0.240883, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="UIManager" type="Control" node_paths=PackedStringArray("stress_bar", "health_container")]
 z_index = 10
 layout_mode = 3
@@ -29,6 +40,7 @@ stress_textures = Array[Texture2D]([ExtResource("2_j7nob"), ExtResource("3_yq4be
 health_container = NodePath("HBoxContainer")
 full_heart = ExtResource("2_c85kt")
 empty_heart = ExtResource("3_hc7oa")
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -108,6 +120,46 @@ texture = ExtResource("14_jm3bn")
 layout_mode = 0
 offset_right = 288.0
 offset_bottom = 96.0
+scale = Vector2(0.963804, 1.10103)
 theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -240.0
+offset_right = 180.0
+offset_bottom = -140.0
+grow_vertical = 2
+scale = Vector2(1.00447, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_hmiox")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Obj-Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.298039, 0.176471, 0.0901961, 1)
+text = "OBJECCTIVE"
+
+[node name="ObjectiveText" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.537255, 0.317647, 0.160784, 1)
+theme_override_colors/font_shadow_color = Color(0.839216, 0.584314, 0, 1)
+text = "Mission1 :"
+
+[node name="PanicNumber" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1088.0
+offset_right = 1184.0
+offset_bottom = 64.0
+text = "100/100"
 horizontal_alignment = 1
 vertical_alignment = 1

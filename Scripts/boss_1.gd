@@ -10,7 +10,7 @@ extends CharacterBody2D
 
 const ARROW_SCENE = preload("res://Scenes/arrow.tscn")
 
-var talked_to: bool = false
+var talked_to: int = 0
 var start_x: float = 0.0 
 
 # State Layouts
@@ -30,7 +30,8 @@ var target_player: CharacterBody2D = null
 var attack_timer: float = 0.0
 var arrows_shot_this_turn: int = 0
 var target_reposition_point: Vector2 = Vector2.ZERO
-var arena_center: Vector2 = Vector2(-3296, 3008)
+# NEW COORDINATES SPECIFIED:
+var arena_center: Vector2 = Vector2(-2957, 3152)
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -222,18 +223,32 @@ func _handle_death() -> void:
 	
 # --- Trigger Area Detection ---
 func _on_trigger_area_body_entered(body: Node2D) -> void:
-	if body.name == 'Player' and not talked_to:
-		talked_to = true
-		Global.is_talking = true
-		current_state = NPCState.IDLE
-		
-		Dialogic.Choices.choice_selected.connect(_on_dialogic_choice_selected)
-		Dialogic.timeline_ended.connect(_on_dialogue_finished)
-		Dialogic.start("boss1_dialog")
+	if body.name == 'Player':
+		# FIRST INTERACTION
+		if talked_to == 0:
+			talked_to = 1
+			Global.is_talking = true
+			current_state = NPCState.IDLE
+			
+			Dialogic.Choices.choice_selected.connect(_on_dialogic_choice_selected)
+			Dialogic.timeline_ended.connect(_on_dialogue_finished)
+			Dialogic.start("boss1_dialog")
+			Global.current_mission = 2
+			
+		# RE-ENTRY INTERACTION (Only runs if the first condition was NOT met)
+		elif talked_to == 1:
+			talked_to = 2
+			Global.is_talking = true
+			current_state = NPCState.IDLE
+			
+			Dialogic.Choices.choice_selected.connect(_on_dialogic_choice_selected)
+			Dialogic.timeline_ended.connect(_on_dialogue_finished)
+			Dialogic.start("boss1_fight_dialog")
 
 func _on_dialogic_choice_selected(info: Dictionary) -> void:
-	if info.text == "Fight!":
+	if info.text == "Fight!!!":
 		is_fighting = true
+
 
 # --- Dialogue Sequence Transitions ---
 func _on_dialogue_finished() -> void:
@@ -243,12 +258,18 @@ func _on_dialogue_finished() -> void:
 		Dialogic.timeline_ended.disconnect(_on_dialogue_finished)
 
 	if is_fighting:
-		arena_center = Vector2(-3296, 3008)
+		# Ensure our dynamic calculations use the updated center position
+		arena_center = Vector2(-2957, 3152)
+		
+		# --- RESET GLOBAL STATS TO DEFAULT COMBAT VALUES ---
+		Global.hp = 3
+		Global.enemyHP = 5
+		Global.panic = 0.0
 		
 		var player = get_parent().get_node_or_null("Player")
 		if player:
 			player.global_position = arena_center
-		
+			
 		global_position = arena_center + Vector2(150, 0)
 		current_mode = BossMode.FIGHT
 		current_combat_state = CombatState.SHOOTING
@@ -256,6 +277,11 @@ func _on_dialogue_finished() -> void:
 		
 		var ui_manager = get_parent().get_node_or_null("CanvasLayer/UIManager")
 		if ui_manager:
+			# Force a structural layout layout call to match the refreshed values immediately
+			ui_manager.update_health()
+			ui_manager.update_stress()
+			ui_manager.update_enemy_health()
+			
 			ui_manager.start_fight_countdown()
 			ui_manager.show_boss_health()
 	else:

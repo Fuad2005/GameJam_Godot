@@ -31,6 +31,7 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "boss1_dialog": "res://boss1_dialog.dtl",
+"boss1_fight_dialog": "res://boss1_fight_dialog.dtl",
 "boss2_dialog": "res://boss2_dialog.dtl",
 "merchant_dialogue": "res://merchant_dialogue.dtl"
 }
@@ -76,8 +77,6 @@ audio/channel_defaults={
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/window_width_override=3840
-window/size/window_height_override=2160
 window/stretch/mode="canvas_items"
 window/max_fps=60
 

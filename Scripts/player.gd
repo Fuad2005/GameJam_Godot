@@ -23,6 +23,7 @@ var last_facing_direction: Vector2 = Vector2.DOWN
 
 # --- State Flags ---
 var is_dashing: bool = false
+var is_in_panic: bool = false
 var can_dash: bool = true
 var is_stabbing: bool = false
 var is_dead: bool = false # New flag to block inputs on death
@@ -39,7 +40,11 @@ func _process(delta: float) -> void:
 		return
 
 	# 1. Increment the value cleanly over time using delta
-	Global.panic += 0.05
+	Global.panic += Global.panic_change
+	#print(Global.panic)
+	
+	if not is_in_panic and Global.panic > 0.1:
+		Global.panic_change = -0.05
 	
 	# 2. Use our cached reference.
 	if ui_manager:
@@ -228,4 +233,19 @@ func _play_idle_animation(dir: Vector2) -> void:
 
 
 func _on_hit_check_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
-	print(area.name)
+	# Safety check: Make sure the area actually exists and hasn't been deleted
+	if area and is_instance_valid(area):
+		if area.name == "PanicZone":
+			is_in_panic = true
+			Global.panic_change = 0.05
+
+
+func _on_hit_check_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+	# Safety check: Prevents crashing if the exiting area was queue_free'd this frame
+	if area and is_instance_valid(area):
+		if area.name == "PanicZone":
+			is_in_panic = false
+	else:
+		# FALLBACK: If the area vanished mid-fight, assume we left it 
+		# so the player's panic doesn't get permanently stuck rising!
+		is_in_panic = false

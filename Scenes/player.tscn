@@ -439,5 +439,8 @@ shape = SubResource("CapsuleShape2D_6jxw6")
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_6sthe")
 
+[node name="StepSound" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="body_entered" from="BladeHitbox" to="." method="_on_blade_hitbox_body_entered"]
 [connection signal="area_shape_entered" from="HitCheck" to="." method="_on_hit_check_area_shape_entered"]
+[connection signal="area_shape_exited" from="HitCheck" to="." method="_on_hit_check_area_shape_exited"]

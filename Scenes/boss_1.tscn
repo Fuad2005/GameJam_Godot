@@ -324,7 +324,7 @@ radius = 96.0
 radius = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gxlv4"]
-radius = 224.0
+radius = 256.0
 
 [node name="Boss_1" type="CharacterBody2D"]
 script = ExtResource("1_0osfv")
@@ -353,7 +353,6 @@ shape = SubResource("CircleShape2D_3ww32")
 [node name="PanicZone" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PanicZone"]
-position = Vector2(0, 96)
 shape = SubResource("CircleShape2D_gxlv4")
 
 [connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
