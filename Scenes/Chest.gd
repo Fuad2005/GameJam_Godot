@@ -19,8 +19,8 @@ func hit_by_blade():
 	is_open = true
 	sprite.texture = chest_open
 	
-	# 1. Wait for exactly half a second (0.5 seconds)
-	await get_tree().create_timer(0.5).timeout
+	# 1. Wait for exactly half a second (0.2 seconds)
+	await get_tree().create_timer(0.2).timeout
 	
 	# 2. Play the coin sound after the delay
 	sound.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://df3xk5seg35u"]
+[gd_scene load_steps=36 format=4 uid="uid://df3xk5seg35u"]
 
 [ext_resource type="Texture2D" uid="uid://nbevsf62jsqj" path="res://Assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Tileset Grass.png" id="1_fi323"]
 [ext_resource type="PackedScene" uid="uid://b03ha8sib3dbj" path="res://Scenes/player.tscn" id="1_wvlti"]
@@ -13,17 +13,14 @@
 [ext_resource type="PackedScene" uid="uid://c586swg6ge863" path="res://Scenes/Chest.tscn" id="7_arc6p"]
 [ext_resource type="PackedScene" uid="uid://begu6h7yndth0" path="res://Scenes/boss_1.tscn" id="7_ey5yw"]
 [ext_resource type="PackedScene" uid="uid://bhv8ryrp7ex8q" path="res://Scenes/ui_manager.tscn" id="9_iyeq8"]
+[ext_resource type="PackedScene" uid="uid://v266km8rw5e" path="res://Scenes/PauseMenu.tscn" id="13_8dfni"]
 [ext_resource type="PackedScene" uid="uid://c4f6lbdhop2k" path="res://Scenes/legionaire.tscn" id="13_w0tnw"]
+[ext_resource type="PackedScene" uid="uid://ecs5pj6f2pdh" path="res://Scenes/lose_menu.tscn" id="14_hcu2h"]
 [ext_resource type="PackedScene" path="res://Scenes/merchant.tscn" id="14_wq26j"]
-[ext_resource type="AudioStream" uid="uid://s38ukxfl4nnb" path="res://Assets/mixkit-discover-587.wav" id="16_pgywu"]
-[ext_resource type="PackedScene" uid="uid://o8enbasy7354" path="res://Scenes/Chest.tscn" id="7_arc6p"]
-[ext_resource type="PackedScene" path="res://Scenes/boss_1.tscn" id="7_ey5yw"]
-[ext_resource type="PackedScene" path="res://Scenes/ui_manager.tscn" id="9_iyeq8"]
-[ext_resource type="PackedScene" uid="uid://cy3hcd5aiqqck" path="res://Scenes/legionaire.tscn" id="13_w0tnw"]
-[ext_resource type="PackedScene" uid="uid://bd3dj2emwnuka" path="res://Scenes/merchant.tscn" id="14_wq26j"]
-[ext_resource type="PackedScene" uid="uid://cieixk5o06lix" path="res://slime.tscn" id="15_578ma"]
-[ext_resource type="PackedScene" uid="uid://blu4q8j73cnmf" path="res://key.tscn" id="17_rfphb"]
-[ext_resource type="PackedScene" uid="uid://m3prj4kavqpv" path="res://Scenes/Door_closed.tscn" id="18_h6xrs"]
+[ext_resource type="PackedScene" path="res://slime.tscn" id="15_578ma"]
+[ext_resource type="AudioStream" uid="uid://ca6m626qbhfv5" path="res://Assets/the_mountain-spooky-scary-130009.mp3" id="17_dscmk"]
+[ext_resource type="PackedScene" path="res://key.tscn" id="17_rfphb"]
+[ext_resource type="PackedScene" path="res://Scenes/Door_closed.tscn" id="18_h6xrs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rr4qo"]
 texture = ExtResource("1_fi323")
@@ -1470,6 +1467,10 @@ position = Vector2(963, -444)
 
 [node name="UIManager" parent="CanvasLayer" instance=ExtResource("9_iyeq8")]
 
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("13_8dfni")]
+
+[node name="LoseMenu" parent="CanvasLayer" instance=ExtResource("14_hcu2h")]
+
 [node name="Chest" parent="." instance=ExtResource("7_arc6p")]
 position = Vector2(384, 0)
 
@@ -1491,8 +1492,10 @@ position = Vector2(565, -1480)
 position = Vector2(-28, -993)
 
 [node name="bgm" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("16_pgywu")
+stream = ExtResource("17_dscmk")
+volume_db = -3.962
 autoplay = true
+
 [node name="Node2D" parent="." instance=ExtResource("15_578ma")]
 position = Vector2(1747, 258)
 

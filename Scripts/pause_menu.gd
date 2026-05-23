@@ -3,7 +3,7 @@ extends Control
 const HOME_SCENE_PATH := "res://Scenes/main_menu.tscn"  # Change to your main menu path
  
 func _ready() -> void:
-	visible = true
+	visible = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
  
 func _unhandled_input(event: InputEvent) -> void:

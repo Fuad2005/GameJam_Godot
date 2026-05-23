@@ -26,18 +26,34 @@ var last_facing_direction: Vector2 = Vector2.DOWN
 var is_dashing: bool = false
 var can_dash: bool = true
 var is_stabbing: bool = false
+var is_dead: bool = false # New flag to block inputs on death
 
 
 func _process(delta: float) -> void:
+	# If player is already dead, completely stop process updates
+	if is_dead:
+		return
+		
+	# Check if health dropped to zero or below from an external hit
+	if Global.hp <= 0:
+		_handle_player_death()
+		return
+
 	# 1. Increment the value cleanly over time using delta
-	# (0.05 * 60 frames = ~3 panic points per second)
 	Global.panic += 0.05
 	
-	# 2. Use our cached reference. No more searching means NO MORE LAG!
+	# 2. Use our cached reference.
 	if ui_manager:
 		ui_manager.update_stress()
 
+
 func _physics_process(delta: float) -> void:
+	# Lock physics and movement completely if dead
+	if is_dead:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+
 	if Global.is_talking:
 		input_history.clear() # Wipe the buffer so they don't "remember" keys held down
 		velocity = Vector2.ZERO # Instantly kill any sliding momentum
@@ -74,8 +90,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _handle_input_buffer() -> void:
-	
-	if Global.is_talking:
+	if Global.is_talking or is_dead:
 		return
 		
 	var actions = {
@@ -92,6 +107,39 @@ func _handle_input_buffer() -> void:
 				input_history.append(dir)
 		if Input.is_action_just_released(action):
 			input_history.erase(dir)
+
+
+# --- Death Sequence (Inside Player CharacterBody2D) ---
+func _handle_player_death() -> void:
+	is_dead = true
+	Global.hp = 0 # Safety floor stop
+	velocity = Vector2.ZERO
+	input_history.clear()
+	
+	# Turn off weapon hitboxes so player can't hurt things post-mortem
+	if blade_hitbox:
+		blade_hitbox.get_node("CollisionShape2D").disabled = true
+		
+	print("Player has died!")
+	
+	# Play Death Animation
+	if animated_sprite.sprite_frames.has_animation("Death"):
+		animated_sprite.play("Death")
+		await animated_sprite.animation_finished
+	else:
+		# Fallback if animation name is lowercase or missing
+		animated_sprite.stop()
+		await get_tree().create_timer(1.5).timeout 
+		
+	# --- SHOW LOSE SCREEN MENU AND FREEZE GAME ---
+	# Looks for LoseMenu inside CanvasLayer relative to your root scene structure
+	var lose_menu = get_node_or_null("/root/Game/CanvasLayer/LoseMenu")
+	if lose_menu:
+		lose_menu.visible = true
+		get_tree().paused = true # Freezes enemies, physics, and projectiles cleanly!
+	else:
+		print("Error: Could not find LoseMenu at /root/Game/CanvasLayer/LoseMenu")
+		
 
 
 # --- Stab logic ---
@@ -121,6 +169,7 @@ func _start_stab() -> void:
 
 
 func _on_stab_animation_finished() -> void:
+	if is_dead: return
 	is_stabbing = false
 	blade_hitbox.get_node("CollisionShape2D").disabled = true
 
@@ -154,6 +203,7 @@ func _start_dash() -> void:
 
 # --- Walking / idle ---
 func _update_sprite_direction(dir: Vector2) -> void:
+	if is_dead: return
 	match dir:
 		Vector2.RIGHT:
 			animated_sprite.play("Walking_Right")
@@ -165,6 +215,7 @@ func _update_sprite_direction(dir: Vector2) -> void:
 			animated_sprite.play("Walking_Up")
 
 func _play_idle_animation(dir: Vector2) -> void:
+	if is_dead: return
 	match dir:
 		Vector2.RIGHT:
 			animated_sprite.play("Idle_Right")
@@ -176,12 +227,5 @@ func _play_idle_animation(dir: Vector2) -> void:
 			animated_sprite.play("Idle_Up")
 
 
-# --- Blade hitbox signal ---
-#func _on_BladeHitbox_body_entered(body):
-	#
-	#print(body)
-	#
-	#if body.is_in_group("Chests"):
-		#print(body)
-		#body.hit_by_blade()
-	
+func _on_hit_check_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+	print(area.name)

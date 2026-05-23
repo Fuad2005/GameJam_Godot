@@ -183,30 +183,43 @@ func take_damage() -> void:
 func _handle_death() -> void:
 	current_mode = BossMode.DEAD
 	
+	# Turn off the hitboxes right away so the player can't keep hitting the dead body
+	# Assuming your Area2D is named "Hitbox" based on your signal name
+	var hitbox = get_node_or_null("Hitbox")
+	if hitbox:
+		hitbox.monitoring = false
+		hitbox.monitorable = false
+	
+	# 1. Play the death animation if it exists
 	if animated_sprite.sprite_frames.has_animation("death"):
 		animated_sprite.play("death")
 		await animated_sprite.animation_finished
+	
+	# 2. Dramatic pause: Wait for 2 seconds after the death animation finishes
+	print("Boss defeated! Waiting 2 seconds before teleporting...")
+	await get_tree().create_timer(2.0).timeout
 	
 	# Reset exploration flags and warp out of arena
 	Global.is_talking = false
 	is_fighting = false
 	
-	# 1. Teleport Player back to requested safe zone coords
+	# 3. Teleport Player back to requested safe zone coords
 	var player = get_parent().get_node_or_null("Player")
 	if player:
 		player.global_position = Vector2(890, -336)
 		
-	# 2. Teleport Boss to its resting coordinates
+	# 4. Teleport Boss to its resting coordinates
 	global_position = Vector2(963, -444)
 	
-	# 3. Clean up UI elements layout
+	# 5. Clean up UI elements layout
 	var ui_manager = get_parent().get_node_or_null("CanvasLayer/UIManager")
 	if ui_manager and ui_manager.has_node("EnemyHealthLabel"):
 		ui_manager.get_node("EnemyHealthLabel").hide()
 		
-	# Optional: Remove the boss node if you want it to completely disappear after dying
+	# Optional: Remove the boss node completely if you don't want it sitting at the resting spot
 	# queue_free()
-
+	
+	
 # --- Trigger Area Detection ---
 func _on_trigger_area_body_entered(body: Node2D) -> void:
 	if body.name == 'Player' and not talked_to:
