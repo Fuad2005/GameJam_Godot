@@ -43,6 +43,22 @@ region = Rect2(0, 32, 32, 32)
 atlas = ExtResource("1_455tu")
 region = Rect2(0, 64, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6iax8"]
+atlas = ExtResource("1_455tu")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sl2t3"]
+atlas = ExtResource("1_455tu")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csy31"]
+atlas = ExtResource("1_455tu")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqhwc"]
+atlas = ExtResource("1_455tu")
+region = Rect2(160, 96, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7bruh"]
 atlas = ExtResource("1_455tu")
 region = Rect2(128, 32, 32, 32)
@@ -92,7 +108,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rwfcn")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -115,9 +131,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ggqit")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -129,6 +145,23 @@ animations = [{
 "loop": true,
 "name": &"down",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6iax8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sl2t3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csy31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqhwc")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -182,11 +215,15 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_euaem"]
-radius = 12.0
-height = 44.0
+radius = 9.0
+height = 34.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ibv4i"]
 radius = 96.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0jknl"]
+radius = 12.0
+height = 58.0
 
 [node name="Legionaire" type="CharacterBody2D"]
 position = Vector2(0, -1)
@@ -197,8 +234,10 @@ texture_filter = 1
 position = Vector2(-2.86102e-06, 0.499998)
 scale = Vector2(2, 1.96875)
 sprite_frames = SubResource("SpriteFrames_jplgj")
-animation = &"right"
+animation = &"hurt"
 autoplay = "idle"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
@@ -211,4 +250,10 @@ shape = SubResource("CapsuleShape2D_euaem")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerArea"]
 shape = SubResource("CircleShape2D_ibv4i")
 
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_0jknl")
+
 [connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
+[connection signal="area_shape_entered" from="Hitbox" to="." method="_on_hitbox_area_shape_entered"]
