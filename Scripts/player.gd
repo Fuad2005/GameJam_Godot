@@ -230,3 +230,8 @@ func _on_hit_check_area_shape_exited(area_rid: RID, area: Area2D, area_shape_ind
 			is_in_panic = false
 	else:
 		is_in_panic = false
+
+
+func _on_mom_dad_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		Dialogic.start("mom-dad")

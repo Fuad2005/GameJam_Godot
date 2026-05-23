@@ -36,6 +36,7 @@ directories/dtl_directory={
 "boss2_fight_dialog": "res://boss2_fight_dialog.dtl",
 "escape_dialog": "res://escape_dialog.dtl",
 "merchant_dialogue": "res://merchant_dialogue.dtl"
+"mom-dad": "res://mom-dad.dtl"
 }
 layout/style_directory={}
 layout/style_list=[]
@@ -79,6 +80,8 @@ audio/channel_defaults={
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/window_width_override=3840
+window/size/window_height_override=2160
 window/stretch/mode="canvas_items"
 window/max_fps=60
 
