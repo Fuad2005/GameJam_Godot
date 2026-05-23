@@ -11,9 +11,15 @@ extends Control
 
 @onready var countdown_label: Label = $CountdownLabel
 @onready var coin_count: Label = $CoinCount
+# New node reference for the boss's health display text
+@onready var enemy_health_label: Label = $EnemyHealthLabel
 
 func _ready() -> void:
 	countdown_label.hide()
+	
+	# Hide the boss health meter initially so it doesn't show up during exploration
+	if enemy_health_label:
+		enemy_health_label.hide()
 	
 	# Initial sync right when the game loads for all UI elements
 	update_health()
@@ -35,6 +41,9 @@ func start_fight_countdown() -> void:
 	
 	countdown_label.text = "FIGHT!"
 	Global.is_talking = false 
+	
+	# Reveal the boss health bar right as the action starts!
+	show_boss_health()
 	
 	await get_tree().create_timer(1.0).timeout
 	countdown_label.hide()
@@ -69,5 +78,22 @@ func update_coins() -> void:
 	if not coin_count:
 		return
 		
-	# Grabs the current coin count integer from Global.gd and converts it to a String
 	coin_count.text = ": " + str(Global.coins)
+
+
+# --- BOSS HEALTH LOGIC ---
+
+# Call this to reveal the label and set the initial text values
+func show_boss_health() -> void:
+	if not enemy_health_label:
+		return
+	
+	update_enemy_health() # Sync text values first
+	enemy_health_label.show() # Reveal it on screen
+
+# Call this from your player or sword scripts whenever the boss takes a hit!
+func update_enemy_health() -> void:
+	if not enemy_health_label:
+		return
+		
+	enemy_health_label.text = "Enemy Health: " + str(Global.enemyHP)

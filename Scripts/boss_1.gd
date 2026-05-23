@@ -14,7 +14,7 @@ var talked_to: bool = false
 var start_x: float = 0.0 
 
 # State Layouts
-enum BossMode { STANDING, FIGHT }
+enum BossMode { STANDING, FIGHT, HURT, DEAD }
 var current_mode: BossMode = BossMode.STANDING
 
 enum NPCState { WALK_LEFT, WALK_RIGHT, IDLE }
@@ -41,6 +41,12 @@ func _physics_process(delta: float) -> void:
 	if Global.is_talking:
 		velocity = Vector2.ZERO
 		_play_combat_or_normal_idle()
+		move_and_slide()
+		return
+
+	# Lock movement processing completely if hurt or defeated
+	if current_mode == BossMode.HURT or current_mode == BossMode.DEAD:
+		velocity = Vector2.ZERO
 		move_and_slide()
 		return
 
@@ -116,9 +122,8 @@ func _process_fight_behavior(delta: float) -> void:
 				current_combat_state = CombatState.SHOOTING
 
 func _choose_new_arena_spot() -> void:
-	# Randomly pick an angle and radius inside your arena bounds relative to the center
 	var random_angle = randf_range(0, 2 * PI)
-	var random_radius = randf_range(100.0, 300.0) # Keeps the boss moving roughly within a 300px ring
+	var random_radius = randf_range(100.0, 300.0)
 	
 	target_reposition_point = arena_center + Vector2(cos(random_angle), sin(random_angle)) * random_radius
 
@@ -136,9 +141,6 @@ func _play_combat_or_normal_idle() -> void:
 		
 func _shoot_arrow(dir: Vector2) -> void:
 	var arrow_instance = ARROW_SCENE.instantiate()
-	
-	# Spawn offset: push the arrow 30 pixels out in the direction it's firing
-	# This keeps it clear of the boss's immediate collision hull
 	var spawn_offset = dir * 30.0
 	arrow_instance.global_position = global_position + spawn_offset
 	
@@ -146,6 +148,64 @@ func _shoot_arrow(dir: Vector2) -> void:
 	
 	if arrow_instance.has_method("launch"):
 		arrow_instance.launch(dir)
+
+# --- DAMAGE LOGIC ---
+func take_damage() -> void:
+	# Ignore hits if already hurt or dead
+	if current_mode == BossMode.HURT or current_mode == BossMode.DEAD:
+		return
+		
+	Global.enemyHP -= 1
+	print("Boss took damage! Current HP: ", Global.enemyHP)
+	
+	# Update UIManager health readout text layout
+	var ui_manager = get_parent().get_node_or_null("CanvasLayer/UIManager")
+	if ui_manager:
+		ui_manager.update_enemy_health()
+		
+	# Check if boss is defeated
+	if Global.enemyHP <= 0:
+		_handle_death()
+		return
+		
+	# Otherwise, play hurt state processing animation flash
+	var previous_state = current_combat_state
+	current_mode = BossMode.HURT
+	
+	if animated_sprite.sprite_frames.has_animation("hurt"):
+		animated_sprite.play("hurt")
+		await animated_sprite.animation_finished
+		
+	# Resume fight routines if still standing
+	current_mode = BossMode.FIGHT
+	current_combat_state = previous_state
+
+func _handle_death() -> void:
+	current_mode = BossMode.DEAD
+	
+	if animated_sprite.sprite_frames.has_animation("death"):
+		animated_sprite.play("death")
+		await animated_sprite.animation_finished
+	
+	# Reset exploration flags and warp out of arena
+	Global.is_talking = false
+	is_fighting = false
+	
+	# 1. Teleport Player back to requested safe zone coords
+	var player = get_parent().get_node_or_null("Player")
+	if player:
+		player.global_position = Vector2(890, -336)
+		
+	# 2. Teleport Boss to its resting coordinates
+	global_position = Vector2(963, -444)
+	
+	# 3. Clean up UI elements layout
+	var ui_manager = get_parent().get_node_or_null("CanvasLayer/UIManager")
+	if ui_manager and ui_manager.has_node("EnemyHealthLabel"):
+		ui_manager.get_node("EnemyHealthLabel").hide()
+		
+	# Optional: Remove the boss node if you want it to completely disappear after dying
+	# queue_free()
 
 # --- Trigger Area Detection ---
 func _on_trigger_area_body_entered(body: Node2D) -> void:
@@ -170,27 +230,29 @@ func _on_dialogue_finished() -> void:
 		Dialogic.timeline_ended.disconnect(_on_dialogue_finished)
 
 	if is_fighting:
-		# Define arena focus center
 		arena_center = Vector2(-3296, 3008)
 		
-		# 1. Teleport Player
 		var player = get_parent().get_node_or_null("Player")
 		if player:
 			player.global_position = arena_center
 		
-		# 2. Teleport Boss slightly to the side and start shooting sequence
 		global_position = arena_center + Vector2(150, 0)
 		current_mode = BossMode.FIGHT
 		current_combat_state = CombatState.SHOOTING
-		attack_timer = 3.5 # Syncs up with the UIManager 3-second visual countdown
+		attack_timer = 3.5 
 		
-		# 3. Call UIManager to display announcement counter
 		var ui_manager = get_parent().get_node_or_null("CanvasLayer/UIManager")
 		if ui_manager:
 			ui_manager.start_fight_countdown()
+			ui_manager.show_boss_health()
 	else:
 		Global.is_talking = false
 		if global_position.x > start_x:
 			current_state = NPCState.WALK_LEFT
 		else:
 			current_state = NPCState.WALK_RIGHT
+
+func _on_hitbox_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+	if area.name == "BladeHitbox":
+		print(area)
+		take_damage() # Triggers damage sequence routine

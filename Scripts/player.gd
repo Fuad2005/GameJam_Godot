@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var speed: float = 200.0
-@export var stab_move_penalty: float = 0.5  # 0.5 means they move at 50% speed while stabbing
+@export var stab_move_penalty: float = 1  # 0.5 means they move at 50% speed while stabbing
 
 # --- Dash Configuration Settings ---
 @export var dash_speed: float = 600.0
@@ -16,6 +16,8 @@ extends CharacterBody2D
 
 # This array acts as our memory buffer for pressed directions
 var input_history: Array[Vector2] = []
+
+var boss_health: int = 10
 
 # Tracks the last direction the player moved so we know which idle to play
 var last_facing_direction: Vector2 = Vector2.DOWN
@@ -175,6 +177,11 @@ func _play_idle_animation(dir: Vector2) -> void:
 
 
 # --- Blade hitbox signal ---
-func _on_BladeHitbox_body_entered(body):
-	if body.is_in_group("Chests"):
-		body.hit_by_blade()
+#func _on_BladeHitbox_body_entered(body):
+	#
+	#print(body)
+	#
+	#if body.is_in_group("Chests"):
+		#print(body)
+		#body.hit_by_blade()
+	

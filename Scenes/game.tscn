@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://df3xk5seg35u"]
+[gd_scene load_steps=31 format=4 uid="uid://df3xk5seg35u"]
 
 [ext_resource type="Texture2D" uid="uid://nbevsf62jsqj" path="res://Assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Tileset Grass.png" id="1_fi323"]
 [ext_resource type="PackedScene" uid="uid://b03ha8sib3dbj" path="res://Scenes/player.tscn" id="1_wvlti"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bhv8ryrp7ex8q" path="res://Scenes/ui_manager.tscn" id="9_iyeq8"]
 [ext_resource type="PackedScene" uid="uid://c4f6lbdhop2k" path="res://Scenes/legionaire.tscn" id="13_w0tnw"]
 [ext_resource type="PackedScene" path="res://Scenes/merchant.tscn" id="14_wq26j"]
+[ext_resource type="AudioStream" uid="uid://s38ukxfl4nnb" path="res://Assets/mixkit-discover-587.wav" id="16_pgywu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rr4qo"]
 texture = ExtResource("1_fi323")
@@ -1445,7 +1446,7 @@ tile_map_data = PackedByteArray("AAAUAP7/AAAFAAAAAAAUAP//AAAFAAEAAAAUAAAAAAAFAAA
 tile_set = SubResource("TileSet_jomgs")
 
 [node name="Player" parent="." instance=ExtResource("1_wvlti")]
-position = Vector2(192, 194)
+position = Vector2(890, -336)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target_node")]
 zoom = Vector2(1.8, 1.8)
@@ -1455,7 +1456,7 @@ script = ExtResource("4_213wx")
 target_node = NodePath("../Player")
 
 [node name="Boss_1" parent="." instance=ExtResource("7_ey5yw")]
-position = Vector2(960, -448)
+position = Vector2(963, -444)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -1480,3 +1481,7 @@ position = Vector2(565, -1480)
 
 [node name="merchant" parent="." instance=ExtResource("14_wq26j")]
 position = Vector2(-28, -993)
+
+[node name="bgm" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_pgywu")
+autoplay = true
