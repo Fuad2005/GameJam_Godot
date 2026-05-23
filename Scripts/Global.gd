@@ -6,6 +6,7 @@ var game_camera: Camera2D = null
 var hp: int = 3
 var coins: int = 0
 var panic: float = 0
+var enemyHP: int = 5
 var key: bool = false
 
 var is_talking: bool = false
