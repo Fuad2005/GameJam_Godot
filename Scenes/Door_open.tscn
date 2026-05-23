@@ -1,3 +1,28 @@
-[gd_scene format=3 uid="uid://dtmyajpixrjiu"]
+[gd_scene load_steps=5 format=3 uid="uid://b24ns0uodyjy6"]
 
-[node name="DoorOpen" type="Node2D"]
+[ext_resource type="Texture2D" uid="uid://y2orlxhptivd" path="res://Assets/door.png" id="1_816m2"]
+[ext_resource type="Script" path="res://Scripts/door_open.gd" id="1_fm4o0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3la3f"]
+size = Vector2(109, 103)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d2xj0"]
+size = Vector2(113, 116)
+
+[node name="DoorOpen" type="StaticBody2D"]
+script = ExtResource("1_fm4o0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 2.5)
+shape = SubResource("RectangleShape2D_3la3f")
+
+[node name="BladeTrigger" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BladeTrigger"]
+position = Vector2(-0.5, 7)
+shape = SubResource("RectangleShape2D_d2xj0")
+
+[node name="Door" type="Sprite2D" parent="BladeTrigger"]
+position = Vector2(-0.999997, 0)
+scale = Vector2(2.59459, 2.17)
+texture = ExtResource("1_816m2")
