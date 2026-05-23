@@ -60,10 +60,7 @@ func _physics_process(delta: float) -> void:
 # --- Standing/Idle Loop ---
 func _process_standing_behavior(_delta: float) -> void:
 	velocity = Vector2.ZERO
-	if animated_sprite.sprite_frames.has_animation("idle"):
-		animated_sprite.play("idle")
-	else:
-		animated_sprite.stop()
+	_play_combat_or_normal_idle()
 
 # --- Melee Combat Loop ---
 func _process_fight_behavior(delta: float) -> void:
@@ -79,12 +76,21 @@ func _process_fight_behavior(delta: float) -> void:
 			if dist > attack_range:
 				var dir_to_player = (target_player.global_position - global_position).normalized()
 				velocity = dir_to_player * combat_speed
-				animated_sprite.flip_h = velocity.x < 0
 				
-				if animated_sprite.sprite_frames.has_animation("running"):
-					animated_sprite.play("running")
+				# Determine horizontal vs vertical movement dominance for fluid animations
+				if abs(velocity.x) > abs(velocity.y):
+					if velocity.x < 0:
+						animated_sprite.flip_h = false # Explicitly use your 'left' animation asset
+						animated_sprite.play("left")
+					else:
+						animated_sprite.flip_h = false
+						animated_sprite.play("right")
 				else:
-					animated_sprite.play("walking_right")
+					animated_sprite.flip_h = false
+					if velocity.y < 0:
+						animated_sprite.play("up")
+					else:
+						animated_sprite.play("down")
 			else:
 				# Target reached! Halt movement and spin up attack routines
 				velocity = Vector2.ZERO
@@ -164,13 +170,25 @@ func _deal_melee_damage(amount: int) -> void:
 # --- Shared Utility Handlers ---
 func _look_at_node(target: Node2D) -> void:
 	if target:
-		animated_sprite.flip_h = (target.global_position.x - global_position.x) < 0
+		# If target is on the left, check if you have a custom 'left' animation state or just flip horizontal asset
+		if (target.global_position.x - global_position.x) < 0:
+			if animated_sprite.sprite_frames.has_animation("left"):
+				animated_sprite.play("left")
+			else:
+				animated_sprite.flip_h = true
+				animated_sprite.play("right")
+		else:
+			animated_sprite.flip_h = false
+			animated_sprite.play("right")
 
 func _play_combat_or_normal_idle() -> void:
+	# Fallback system if battle_idle layout doesn't exist, use down or standard stop routines
 	if current_mode == BossMode.FIGHT and animated_sprite.sprite_frames.has_animation("battle_idle"):
 		animated_sprite.play("battle_idle")
 	elif animated_sprite.sprite_frames.has_animation("idle"):
 		animated_sprite.play("idle")
+	elif animated_sprite.sprite_frames.has_animation("down"):
+		animated_sprite.play("down")
 	else:
 		animated_sprite.stop()
 

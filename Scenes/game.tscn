@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://df3xk5seg35u"]
+[gd_scene load_steps=35 format=4 uid="uid://df3xk5seg35u"]
 
 [ext_resource type="Texture2D" uid="uid://nbevsf62jsqj" path="res://Assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Tileset Grass.png" id="1_fi323"]
 [ext_resource type="PackedScene" uid="uid://b03ha8sib3dbj" path="res://Scenes/player.tscn" id="1_wvlti"]
@@ -10,18 +10,15 @@
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="4_213wx"]
 [ext_resource type="Texture2D" uid="uid://jn1sqipbgvwa" path="res://Assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Plant.png" id="4_xwe6e"]
 [ext_resource type="Texture2D" uid="uid://c8s2bjnfllxpn" path="res://Assets/basic caves and dungeons 32x32 standard - v1.0/tiles/wall-tiles-32x32.png" id="6_jc0hx"]
-[ext_resource type="PackedScene" uid="uid://c586swg6ge863" path="res://Scenes/Chest.tscn" id="7_arc6p"]
-[ext_resource type="PackedScene" uid="uid://begu6h7yndth0" path="res://Scenes/boss_1.tscn" id="7_ey5yw"]
-[ext_resource type="PackedScene" uid="uid://bhv8ryrp7ex8q" path="res://Scenes/ui_manager.tscn" id="9_iyeq8"]
-[ext_resource type="PackedScene" uid="uid://v266km8rw5e" path="res://Scenes/PauseMenu.tscn" id="13_8dfni"]
-[ext_resource type="PackedScene" uid="uid://c4f6lbdhop2k" path="res://Scenes/legionaire.tscn" id="13_w0tnw"]
-[ext_resource type="PackedScene" uid="uid://ecs5pj6f2pdh" path="res://Scenes/lose_menu.tscn" id="14_hcu2h"]
-[ext_resource type="PackedScene" path="res://Scenes/merchant.tscn" id="14_wq26j"]
-[ext_resource type="PackedScene" path="res://slime.tscn" id="15_578ma"]
-[ext_resource type="AudioStream" uid="uid://ca6m626qbhfv5" path="res://Assets/the_mountain-spooky-scary-130009.mp3" id="17_dscmk"]
-[ext_resource type="PackedScene" path="res://key.tscn" id="17_rfphb"]
-[ext_resource type="PackedScene" path="res://Scenes/Door_closed.tscn" id="18_h6xrs"]
-[ext_resource type="PackedScene" path="res://Scenes/Door_open.tscn" id="19_qvud1"]
+[ext_resource type="PackedScene" uid="uid://o8enbasy7354" path="res://Scenes/Chest.tscn" id="7_arc6p"]
+[ext_resource type="PackedScene" uid="uid://ccwsbgjabbdqw" path="res://Scenes/boss_1.tscn" id="7_ey5yw"]
+[ext_resource type="PackedScene" path="res://Scenes/ui_manager.tscn" id="9_iyeq8"]
+[ext_resource type="PackedScene" uid="uid://cy3hcd5aiqqck" path="res://Scenes/legionaire.tscn" id="13_w0tnw"]
+[ext_resource type="PackedScene" uid="uid://bd3dj2emwnuka" path="res://Scenes/merchant.tscn" id="14_wq26j"]
+[ext_resource type="PackedScene" uid="uid://cieixk5o06lix" path="res://slime.tscn" id="15_578ma"]
+[ext_resource type="PackedScene" uid="uid://blu4q8j73cnmf" path="res://key.tscn" id="17_rfphb"]
+[ext_resource type="PackedScene" uid="uid://m3prj4kavqpv" path="res://Scenes/Door_closed.tscn" id="18_h6xrs"]
+[ext_resource type="PackedScene" uid="uid://b24ns0uodyjy6" path="res://Scenes/Door_open.tscn" id="19_qvud1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rr4qo"]
 texture = ExtResource("1_fi323")
@@ -1430,6 +1427,9 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_bosrf")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_07vcm"]
+radius = 359.022
+
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 
@@ -1452,7 +1452,7 @@ tile_map_data = PackedByteArray("AAAUAP7/AAAFAAAAAAAUAP//AAAFAAEAAAAUAAAAAAAFAAA
 tile_set = SubResource("TileSet_jomgs")
 
 [node name="Player" parent="." instance=ExtResource("1_wvlti")]
-position = Vector2(682, -267)
+position = Vector2(1087, 352)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target_node")]
 zoom = Vector2(1.8, 1.8)
@@ -1467,12 +1467,6 @@ position = Vector2(960, -448)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UIManager" parent="CanvasLayer" instance=ExtResource("9_iyeq8")]
-
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("13_8dfni")]
-visible = false
-
-[node name="LoseMenu" parent="CanvasLayer" instance=ExtResource("14_hcu2h")]
-visible = false
 
 [node name="Chest" parent="." instance=ExtResource("7_arc6p")]
 position = Vector2(384, 0)
@@ -1494,11 +1488,6 @@ position = Vector2(546, -1484)
 [node name="merchant" parent="." instance=ExtResource("14_wq26j")]
 position = Vector2(-28, -993)
 
-[node name="bgm" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("17_dscmk")
-volume_db = -3.962
-autoplay = true
-
 [node name="Node2D" parent="." instance=ExtResource("15_578ma")]
 position = Vector2(1747, 258)
 
@@ -1506,7 +1495,7 @@ position = Vector2(1747, 258)
 position = Vector2(654, -817)
 
 [node name="Key2" parent="." instance=ExtResource("17_rfphb")]
-position = Vector2(1325, -2)
+position = Vector2(777, -700)
 
 [node name="DoorOpen" parent="." instance=ExtResource("19_qvud1")]
 position = Vector2(1841, -1685)
@@ -1516,3 +1505,12 @@ position = Vector2(-29, -908)
 
 [node name="Chest5" parent="." instance=ExtResource("7_arc6p")]
 position = Vector2(-79, -908)
+
+[node name="Mom-Dad" type="Area2D" parent="."]
+position = Vector2(1418, 416)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mom-Dad"]
+position = Vector2(289, 193)
+shape = SubResource("CircleShape2D_07vcm")
+
+[connection signal="body_entered" from="Mom-Dad" to="Player" method="_on_mom_dad_body_entered"]

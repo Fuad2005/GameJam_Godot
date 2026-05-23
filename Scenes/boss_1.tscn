@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://begu6h7yndth0"]
+[gd_scene load_steps=51 format=3 uid="uid://ccwsbgjabbdqw"]
 
 [ext_resource type="Script" path="res://Scripts/boss_1.gd" id="1_0osfv"]
 [ext_resource type="Texture2D" uid="uid://vuws8ll5ic8v" path="res://Assets/HunterOrc/Attack1/Attack1.png" id="2_6i5cx"]

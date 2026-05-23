@@ -249,3 +249,8 @@ func _on_hit_check_area_shape_exited(area_rid: RID, area: Area2D, area_shape_ind
 		# FALLBACK: If the area vanished mid-fight, assume we left it 
 		# so the player's panic doesn't get permanently stuck rising!
 		is_in_panic = false
+
+
+func _on_mom_dad_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		Dialogic.start("mom-dad")
