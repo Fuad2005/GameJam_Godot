@@ -1,11 +1,10 @@
 extends CharacterBody2D
 
-@export var speed: float = 200.0
+
 @export var stab_move_penalty: float = 1  # 0.5 means they move at 50% speed while stabbing
 
 # --- Dash Configuration Settings ---
-@export var dash_speed: float = 600.0
-@export var dash_duration: float = 0.1
+
 @export var dash_cooldown: float = 0.5
 
 @onready var animated_sprite = $AnimatedSprite2D
@@ -60,13 +59,13 @@ func _physics_process(delta: float) -> void:
 		var current_direction: Vector2 = input_history.back()
 		
 		if is_stabbing:
-			velocity = current_direction * (speed * stab_move_penalty)
+			velocity = current_direction * (Global.speed * stab_move_penalty)
 		else:
-			velocity = current_direction * speed
+			velocity = current_direction * Global.speed
 			last_facing_direction = current_direction
 			_update_sprite_direction(current_direction)
 	else:
-		velocity = velocity.move_toward(Vector2.ZERO, speed)
+		velocity = velocity.move_toward(Vector2.ZERO, Global.speed)
 		if not is_stabbing:
 			_play_idle_animation(last_facing_direction)
 
@@ -140,11 +139,12 @@ func _start_dash() -> void:
 	if not input_history.is_empty():
 		dash_direction = input_history.back()
 	
-	velocity = dash_direction * dash_speed
-	_update_sprite_direction(dash_direction)
-	
-	await get_tree().create_timer(dash_duration).timeout
-	
+	for i in range(Global.dash_multiplier):
+		velocity = dash_direction * Global.dash_speed
+		_update_sprite_direction(dash_direction)
+		await get_tree().create_timer(Global.dash_duration).timeout
+		velocity = Vector2.ZERO  # stop between dashes if needed
+
 	is_dashing = false
 	animated_sprite.speed_scale = 1.0
 	
