@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://m3prj4kavqpv"]
+
+[ext_resource type="Texture2D" uid="uid://y2orlxhptivd" path="res://Assets/door.png" id="1_83rq8"]
+[ext_resource type="Script" path="res://Scripts/door.gd" id="1_v08sg"]
+[ext_resource type="Texture2D" uid="uid://b08yvga3lu6ur" path="res://Assets/door_open.png" id="2_k3enh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_14cj2"]
+size = Vector2(96, 95)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixqne"]
+size = Vector2(99, 119)
+
+[node name="DoorClosed" type="StaticBody2D"]
+script = ExtResource("1_v08sg")
+door_open = ExtResource("2_k3enh")
+door_closed = ExtResource("1_83rq8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 0.5)
+shape = SubResource("RectangleShape2D_14cj2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3.18749, 0.875)
+scale = Vector2(2.58446, 1.885)
+texture = ExtResource("1_83rq8")
+
+[node name="BladeTrigger" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BladeTrigger"]
+position = Vector2(0.5, 3.5)
+shape = SubResource("RectangleShape2D_ixqne")
+
+[connection signal="area_shape_entered" from="BladeTrigger" to="." method="_on_blade_trigger_area_shape_entered"]

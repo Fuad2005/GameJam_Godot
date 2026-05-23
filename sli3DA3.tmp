@@ -198,16 +198,10 @@ animations = [{
 radius = 16.0
 height = 32.0
 
-[node name="Slime" type="CharacterBody2D" groups=["Enemies"]]
+[node name="Slime" type="CharacterBody2D"]
 script = ExtResource("1_rxr87")
-speed = null
-left_limit = null
-right_limit = null
-wait_time = null
-hp = null
-coin_reward = null
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Enemies"]]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(1.90735e-06, 1.90735e-06)
 scale = Vector2(2.5, 2.5)
@@ -215,5 +209,5 @@ sprite_frames = SubResource("SpriteFrames_i3rq5")
 animation = &"death"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemies"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_ren1d")
